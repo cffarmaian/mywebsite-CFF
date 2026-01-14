@@ -1,1 +1,197 @@
-Hi, my name is Caspian Farman-Farmaian, and currently I am a sophomore at the Browning School in Manhattan. While I love the energy and fast-paced environment of New York City, I have learned that I'm happiest close to the ocean. To me, the ocean is calm and beautiful, and I'm captivated by its scale and how full of life it is. I'm especially passionate about environmental protection and spending time outdoors. I think it's really important to stay connected with nature and to continue protecting it. This past summer I embarked on a two-week backpacking journey through the forests of Wyoming, hiking and camping throughout the trip.
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Caspian Farman-Farmaian | Interactive Resume</title>
+
+<style>
+:root{
+  --blue:#1d5bd6;
+  --dark:#0a1f44;
+  --light:#f2f7ff;
+}
+
+body{
+  margin:0;
+  font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial;
+  background: linear-gradient(to bottom, #ffffff, var(--light));
+  color: var(--dark);
+}
+
+header{
+  background:white;
+  padding:20px;
+  text-align:center;
+  border-bottom:2px solid var(--blue);
+}
+
+h1{ margin:0; }
+main{
+  max-width:900px;
+  margin:auto;
+  padding:20px;
+}
+
+.section{
+  background:white;
+  border-radius:16px;
+  margin-bottom:20px;
+  box-shadow:0 10px 25px rgba(0,0,0,.1);
+  overflow:hidden;
+}
+
+.section button{
+  width:100%;
+  background:var(--blue);
+  color:white;
+  border:none;
+  padding:16px;
+  font-size:16px;
+  font-weight:700;
+  cursor:pointer;
+}
+
+.section-content{
+  display:none;
+  padding:20px;
+}
+
+.section.open .section-content{
+  display:block;
+}
+
+/* Photo */
+.photo{
+  display:flex;
+  justify-content:center;
+}
+.photo img{
+  width:220px;
+  height:220px;
+  object-fit:cover;
+  border-radius:50%;
+  border:5px solid var(--blue);
+}
+
+/* Resume */
+.resume-item{
+  background:var(--light);
+  border-radius:12px;
+  padding:12px;
+  margin-bottom:10px;
+  cursor:pointer;
+}
+.resume-details{
+  display:none;
+  margin-top:8px;
+}
+.resume-item.open .resume-details{
+  display:block;
+}
+
+/* Links */
+a{
+  color:var(--blue);
+  font-weight:600;
+  text-decoration:none;
+}
+</style>
+</head>
+
+<body>
+
+<header>
+  <h1>Caspian Farman-Farmaian</h1>
+  <p>Sophomore · The Browning School · NYC</p>
+</header>
+
+<main>
+
+<!-- PHOTO -->
+<div class="section open">
+  <button onclick="toggleSection(this)">Photo of Me</button>
+  <div class="section-content photo">
+    <!-- Replace me.jpg with your actual photo -->
+    <img src="me.jpg" alt="Photo of Caspian">
+  </div>
+</div>
+
+<!-- ABOUT ME -->
+<div class="section open">
+  <button onclick="toggleSection(this)">About Me</button>
+  <div class="section-content">
+    <p>
+      Hi, my name is Caspian Farman-Farmaian, and currently I am a sophomore at
+      the Browning School in Manhattan. While I love the energy and fast-paced
+      environment of New York City, I have learned that I'm happiest close to the
+      ocean.
+    </p>
+    <p>
+      To me, the ocean is calm and beautiful, and I'm captivated by its scale and
+      how full of life it is. I'm especially passionate about environmental
+      protection and spending time outdoors.
+    </p>
+    <p>
+      This past summer I embarked on a two-week backpacking journey through the
+      forests of Wyoming, hiking and camping throughout the trip.
+    </p>
+  </div>
+</div>
+
+<!-- RESUME -->
+<div class="section">
+  <button onclick="toggleSection(this)">Resume</button>
+  <div class="section-content">
+
+    <div class="resume-item" onclick="toggleItem(this)">
+      <strong>Education</strong>
+      <div class="resume-details">
+        Sophomore at The Browning School, Manhattan
+      </div>
+    </div>
+
+    <div class="resume-item" onclick="toggleItem(this)">
+      <strong>Interests</strong>
+      <div class="resume-details">
+        Environmental protection, ocean conservation, backpacking, hiking,
+        outdoor exploration
+      </div>
+    </div>
+
+    <div class="resume-item" onclick="toggleItem(this)">
+      <strong>Experience</strong>
+      <div class="resume-details">
+        Two-week backpacking and camping expedition through Wyoming forests
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- WHERE TO FIND ME -->
+<div class="section">
+  <button onclick="toggleSection(this)">Where You Can Find Me</button>
+  <div class="section-content">
+    <ul>
+      <li>📍 Manhattan, New York City</li>
+      <li>🌊 Near the ocean whenever possible</li>
+      <li>🌲 Outdoors hiking, backpacking, or exploring nature</li>
+      <li>📧 Email: your.email@example.com</li>
+    </ul>
+  </div>
+</div>
+
+</main>
+
+<script>
+function toggleSection(btn){
+  btn.parentElement.classList.toggle("open");
+}
+function toggleItem(item){
+  item.classList.toggle("open");
+}
+</script>
+
+</body>
+</html>
