@@ -1,100 +1,386 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Caspian Farman-Farmaian | Interactive Resume</title>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Caspian Farman-Farmaian | Space-Themed Resume</title>
 
 <style>
 :root{
-  --blue:#1d5bd6;
-  --dark:#0a1f44;
-  --light:#f2f7ff;
+  --bg0:#050814;
+  --bg1:#070b1e;
+  --card:#0b1026cc;
+  --line: rgba(255,255,255,.10);
+
+  --text:#eaf0ff;
+  --muted:#b9c6ff;
+
+  --accent:#5aa7ff;
+  --accent2:#a855f7;
+  --accent3:#2af7c3;
+
+  --shadow: 0 18px 70px rgba(0,0,0,.55);
+  --radius: 22px;
 }
+
+*{ box-sizing:border-box; }
+html{ scroll-behavior:smooth; }
 
 body{
   margin:0;
-  font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial;
-  background: linear-gradient(to bottom, #ffffff, var(--light));
-  color: var(--dark);
+  font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+  color: var(--text);
+  background:
+    radial-gradient(900px 600px at 15% 10%, rgba(168,85,247,.30), transparent 60%),
+    radial-gradient(900px 650px at 85% 18%, rgba(90,167,255,.32), transparent 60%),
+    radial-gradient(1100px 750px at 50% 120%, rgba(42,247,195,.12), transparent 60%),
+    linear-gradient(180deg, var(--bg0), var(--bg1));
+  min-height:100vh;
+  overflow-x:hidden;
 }
 
+/* stars */
+body::before{
+  content:"";
+  position:fixed;
+  inset:0;
+  pointer-events:none;
+  opacity:.35;
+  background-image:
+    radial-gradient(2px 2px at 10% 20%, rgba(255,255,255,.9), transparent 60%),
+    radial-gradient(1.5px 1.5px at 25% 70%, rgba(255,255,255,.7), transparent 60%),
+    radial-gradient(1.5px 1.5px at 40% 30%, rgba(255,255,255,.75), transparent 60%),
+    radial-gradient(1.5px 1.5px at 55% 80%, rgba(255,255,255,.65), transparent 60%),
+    radial-gradient(2px 2px at 70% 35%, rgba(255,255,255,.85), transparent 60%),
+    radial-gradient(1.5px 1.5px at 85% 60%, rgba(255,255,255,.7), transparent 60%),
+    radial-gradient(1.5px 1.5px at 92% 25%, rgba(255,255,255,.6), transparent 60%);
+  filter: blur(.2px);
+}
+
+/* subtle moving nebula */
+body::after{
+  content:"";
+  position:fixed;
+  inset:-120px;
+  pointer-events:none;
+  background:
+    radial-gradient(closest-side at 30% 30%, rgba(168,85,247,.10), transparent 60%),
+    radial-gradient(closest-side at 70% 55%, rgba(90,167,255,.10), transparent 60%),
+    radial-gradient(closest-side at 50% 80%, rgba(42,247,195,.06), transparent 60%);
+  animation: drift 18s ease-in-out infinite alternate;
+  opacity:.9;
+}
+@keyframes drift{
+  from{ transform: translate3d(-12px,-8px,0) scale(1.02); }
+  to{ transform: translate3d(14px,10px,0) scale(1.05); }
+}
+
+/* header */
 header{
-  background:white;
-  padding:20px;
-  text-align:center;
-  border-bottom:2px solid var(--blue);
+  position:sticky;
+  top:0;
+  z-index:10;
+  padding: 18px 16px;
+  backdrop-filter: blur(12px);
+  background: linear-gradient(to bottom, rgba(5,8,20,.85), rgba(5,8,20,.55));
+  border-bottom: 1px solid var(--line);
 }
 
-h1{ margin:0; }
+.header-inner{
+  max-width: 1100px;
+  margin: 0 auto;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap: 12px;
+}
+
+.brand{
+  display:flex;
+  flex-direction:column;
+  gap:4px;
+}
+
+h1{
+  margin:0;
+  font-size: clamp(22px, 2.3vw, 30px);
+  letter-spacing:.3px;
+}
+
+.subtitle{
+  margin:0;
+  color: rgba(185,198,255,.95);
+  font-size: 14px;
+  font-weight: 650;
+}
+
+.subtitle a{
+  color: #9fc5ff;
+  text-decoration: none;
+  border-bottom: 1px solid rgba(159,197,255,.25);
+}
+.subtitle a:hover{
+  border-bottom-color: rgba(159,197,255,.75);
+}
+
+.pills{
+  display:flex;
+  gap:10px;
+  flex-wrap:wrap;
+  justify-content:flex-end;
+}
+.pill{
+  font-size: 12px;
+  font-weight: 800;
+  color: var(--text);
+  border: 1px solid rgba(255,255,255,.12);
+  background: rgba(255,255,255,.06);
+  padding: 8px 10px;
+  border-radius: 999px;
+  box-shadow: 0 10px 26px rgba(0,0,0,.25);
+}
+
+/* layout */
 main{
-  max-width:900px;
-  margin:auto;
-  padding:20px;
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 18px 16px 80px;
+  position:relative;
+  z-index:1; /* above background effects */
 }
 
-.section{
-  background:white;
-  border-radius:16px;
-  margin-bottom:20px;
-  box-shadow:0 10px 25px rgba(0,0,0,.1);
+.shell{
+  border-radius: 28px;
+  border: 1px solid rgba(255,255,255,.10);
+  background: linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.03));
+  box-shadow: var(--shadow);
   overflow:hidden;
 }
 
-.section button{
-  width:100%;
-  background:var(--blue);
-  color:white;
-  border:none;
-  padding:16px;
-  font-size:16px;
-  font-weight:700;
-  cursor:pointer;
-}
-
-.section-content{
-  display:none;
-  padding:20px;
-}
-
-.section.open .section-content{
-  display:block;
-}
-
-/* Photo */
-.photo{
+/* top accent bar */
+.shell-top{
+  padding: 16px 18px;
+  background:
+    radial-gradient(900px 200px at 20% 20%, rgba(90,167,255,.22), transparent 60%),
+    radial-gradient(900px 220px at 80% 40%, rgba(168,85,247,.18), transparent 60%),
+    linear-gradient(90deg, rgba(90,167,255,.16), rgba(168,85,247,.12));
+  border-bottom: 1px solid rgba(255,255,255,.10);
   display:flex;
-  justify-content:center;
+  align-items:flex-end;
+  justify-content:space-between;
+  gap: 12px;
 }
-.photo img{
-  width:220px;
-  height:220px;
-  object-fit:cover;
-  border-radius:50%;
-  border:5px solid var(--blue);
+.shell-top h2{
+  margin:0;
+  font-size: 16px;
+  letter-spacing:.25px;
+  opacity:.95;
+}
+.shell-top .meta{
+  font-size: 12px;
+  color: rgba(185,198,255,.95);
+  font-weight: 800;
+  display:flex;
+  gap:10px;
+  flex-wrap:wrap;
+  justify-content:flex-end;
 }
 
-/* Resume */
-.resume-item{
-  background:var(--light);
-  border-radius:12px;
-  padding:12px;
-  margin-bottom:10px;
-  cursor:pointer;
+/* two-column content */
+.content{
+  display:grid;
+  grid-template-columns: 1.25fr .85fr;
+  gap: 16px;
+  padding: 16px;
 }
-.resume-details{
-  display:none;
-  margin-top:8px;
+
+.card{
+  border-radius: var(--radius);
+  border: 1px solid rgba(255,255,255,.10);
+  background: rgba(11,16,38,.62);
+  backdrop-filter: blur(8px);
+  box-shadow: 0 18px 60px rgba(0,0,0,.35);
+  overflow:hidden;
 }
-.resume-item.open .resume-details{
+
+.card-head{
+  padding: 14px 16px;
+  border-bottom: 1px solid rgba(255,255,255,.10);
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:10px;
+  background: linear-gradient(90deg, rgba(90,167,255,.16), rgba(168,85,247,.10));
+}
+
+.card-head .title{
+  font-weight: 900;
+  letter-spacing: .3px;
+  display:flex;
+  align-items:center;
+  gap:10px;
+}
+.badge{
+  font-size: 12px;
+  font-weight: 900;
+  color: rgba(234,240,255,.95);
+  border: 1px solid rgba(255,255,255,.12);
+  background: rgba(255,255,255,.06);
+  padding: 7px 10px;
+  border-radius: 999px;
+}
+
+.card-body{
+  padding: 16px;
+}
+
+p{
+  margin: 0 0 12px;
+  line-height: 1.75;
+  color: rgba(234,240,255,.92);
+}
+
+hr{
+  border:none;
+  border-top: 1px solid rgba(255,255,255,.10);
+  margin: 14px 0;
+}
+
+.facts{
+  display:grid;
+  gap:10px;
+  margin-top: 6px;
+}
+.fact{
+  border-radius: 16px;
+  border: 1px solid rgba(255,255,255,.10);
+  background: rgba(255,255,255,.06);
+  padding: 12px;
+  display:flex;
+  gap:10px;
+  align-items:flex-start;
+}
+.fact b{
+  display:block;
+  font-size: 13px;
+  letter-spacing:.2px;
+}
+.fact span{
+  display:block;
+  margin-top:2px;
+  color: rgba(185,198,255,.95);
+  font-size: 13px;
+}
+
+/* one photo (square + centered) */
+.photo-wrap{
+  display:grid;
+  place-items:center;
+  padding: 10px;
+}
+
+.photo-frame{
+  width: 100%;
+  max-width: 360px;
+  aspect-ratio: 1 / 1;  /* square */
+  border-radius: 24px;
+  overflow:hidden;
+  border: 1px solid rgba(255,255,255,.12);
+  background: rgba(255,255,255,.05);
+  box-shadow: 0 24px 90px rgba(0,0,0,.55);
+  position:relative;
+}
+
+.photo-frame::before{
+  content:"";
+  position:absolute;
+  inset:-2px;
+  background: conic-gradient(from 180deg,
+    rgba(90,167,255,.95),
+    rgba(168,85,247,.95),
+    rgba(42,247,195,.70),
+    rgba(90,167,255,.95)
+  );
+  filter: blur(14px);
+  opacity: .35;
+  z-index:0;
+}
+
+.photo-frame img{
+  position:relative;
+  z-index:1;
+  width:100%;
+  height:100%;
+  object-fit:cover;
   display:block;
 }
 
-/* Links */
-a{
-  color:var(--blue);
-  font-weight:600;
-  text-decoration:none;
+/* achievement chips */
+.chips{
+  display:flex;
+  flex-wrap:wrap;
+  gap:10px;
+  margin-top: 6px;
+}
+.chip{
+  border-radius: 999px;
+  padding: 8px 10px;
+  border: 1px solid rgba(255,255,255,.12);
+  background: rgba(255,255,255,.06);
+  font-size: 12px;
+  font-weight: 850;
+  color: rgba(234,240,255,.95);
+}
+
+.grid2{
+  display:grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+  margin-top: 10px;
+}
+
+.panel{
+  border-radius: 18px;
+  border: 1px solid rgba(255,255,255,.10);
+  background: rgba(255,255,255,.05);
+  padding: 12px;
+}
+
+.panel h3{
+  margin: 0 0 8px;
+  font-size: 14px;
+  letter-spacing:.2px;
+}
+
+ul{
+  margin: 0;
+  padding-left: 18px;
+  color: rgba(234,240,255,.92);
+}
+li{ margin: 8px 0; line-height: 1.6; }
+
+.callout{
+  margin-top: 12px;
+  border-radius: 20px;
+  border: 1px solid rgba(255,255,255,.12);
+  border-left: 5px solid var(--accent);
+  background: linear-gradient(90deg, rgba(90,167,255,.12), rgba(255,255,255,.03));
+  padding: 14px 14px 14px 16px;
+}
+
+.footer{
+  padding: 14px 16px 18px;
+  border-top: 1px solid rgba(255,255,255,.10);
+  color: rgba(185,198,255,.92);
+  font-size: 12px;
+  background: rgba(11,16,38,.48);
+}
+
+/* responsive */
+@media (max-width: 950px){
+  .content{ grid-template-columns: 1fr; }
+  .grid2{ grid-template-columns: 1fr; }
+  .pills{ display:none; }
 }
 </style>
 </head>
@@ -102,95 +388,193 @@ a{
 <body>
 
 <header>
-  <h1>Caspian Farman-Farmaian</h1>
-  <p>Sophomore · The Browning School · NYC</p>
+  <div class="header-inner">
+    <div class="brand">
+      <h1>Caspian Farman-Farmaian</h1>
+      <p class="subtitle">16 · The Browning School · NYC · <a href="mailto:cffarmaian@browning.edu">cffarmaian@browning.edu</a></p>
+    </div>
+
+    <div class="pills" aria-hidden="true">
+      <div class="pill">🌌 Space theme</div>
+      <div class="pill">🏃 Running</div>
+      <div class="pill">📷 Photography</div>
+    </div>
+  </div>
 </header>
 
 <main>
-
-<!-- PHOTO -->
-<div class="section open">
-  <button onclick="toggleSection(this)">Photo of Me</button>
-  <div class="section-content photo">
-    <img src="me.jpg" alt="Photo of Caspian">
-  </div>
-</div>
-
-<!-- ABOUT ME -->
-<div class="section open">
-  <button onclick="toggleSection(this)">About Me</button>
-  <div class="section-content">
-    <p>
-      Hi, my name is Caspian Farman-Farmaian, and currently I am a sophomore at
-      the Browning School in Manhattan. While I love the energy and fast-paced
-      environment of New York City, I have learned that I'm happiest close to the
-      ocean.
-    </p>
-    <p>
-      To me, the ocean is calm and beautiful, and I'm captivated by its scale and
-      how full of life it is. I'm especially passionate about environmental
-      protection and spending time outdoors.
-    </p>
-    <p>
-      This past summer I embarked on a two-week backpacking journey through the
-      forests of Wyoming, hiking and camping throughout the trip.
-    </p>
-  </div>
-</div>
-
-<!-- RESUME -->
-<div class="section">
-  <button onclick="toggleSection(this)">Resume</button>
-  <div class="section-content">
-
-    <div class="resume-item" onclick="toggleItem(this)">
-      <strong>Education</strong>
-      <div class="resume-details">
-        Sophomore at The Browning School, Manhattan
+  <div class="shell">
+    <div class="shell-top">
+      <h2>One-page profile</h2>
+      <div class="meta">
+        <span>Lives in NYC</span>
+        <span>·</span>
+        <span>Sophomore</span>
+        <span>·</span>
+        <span>Age 16</span>
       </div>
     </div>
 
-    <div class="resume-item" onclick="toggleItem(this)">
-      <strong>Interests</strong>
-      <div class="resume-details">
-        Environmental protection, ocean conservation, backpacking, hiking,
-        outdoor exploration
+    <div class="content">
+      <!-- LEFT: text -->
+      <div style="display:grid; gap:16px;">
+        <!-- My Life -->
+        <section class="card" id="mylife">
+          <div class="card-head">
+            <div class="title">🪐 My Life</div>
+            <div class="badge">Introduction</div>
+          </div>
+
+          <div class="card-body">
+            <p>
+              Hi, I’m Caspian Farman-Farmaian. I’m 16, I live in New York City, and I’m a
+              sophomore at The Browning School. I like the energy of NYC, but I’m also someone
+              who stays grounded by training, building routines, and focusing on goals.
+            </p>
+
+            <p>
+              Outside of class, I spend a lot of time running and playing sports because I like
+              challenges that reward consistency. I also enjoy photography, which has taught me
+              how to notice details, be patient, and communicate a story visually.
+            </p>
+
+            <div class="facts" aria-label="Quick facts">
+              <div class="fact">
+                <div>📍</div>
+                <div>
+                  <b>Location</b>
+                  <span>New York City (Manhattan)</span>
+                </div>
+              </div>
+
+              <div class="fact">
+                <div>🎓</div>
+                <div>
+                  <b>School</b>
+                  <span>The Browning School (Sophomore)</span>
+                </div>
+              </div>
+
+              <div class="fact">
+                <div>🏃</div>
+                <div>
+                  <b>Hobbies</b>
+                  <span>Running & sports, photography</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Achievements -->
+        <section class="card" id="achievements">
+          <div class="card-head">
+            <div class="title">🚀 Achievements</div>
+            <div class="badge">Proof of work</div>
+          </div>
+
+          <div class="card-body">
+            <div class="chips" aria-label="Highlights">
+              <span class="chip">Works well in group projects</span>
+              <span class="chip">Cross country</span>
+              <span class="chip">Squash</span>
+              <span class="chip">Baseball</span>
+              <span class="chip">20-mile run</span>
+              <span class="chip">Built a computer</span>
+              <span class="chip">Runs architecture club</span>
+            </div>
+
+            <div class="grid2">
+              <div class="panel">
+                <h3>🏫 Hard things done at school</h3>
+                <ul>
+                  <li>
+                    I handle challenging assignments by planning early, breaking work into steps,
+                    and delivering on deadlines.
+                  </li>
+                  <li>
+                    In group projects, I help the team stay organized, communicate clearly,
+                    and make sure the final result is polished and complete.
+                  </li>
+                </ul>
+              </div>
+
+              <div class="panel">
+                <h3>🏅 Hard physical tasks / sports</h3>
+                <ul>
+                  <li>Run cross country and play squash and baseball.</li>
+                  <li>
+                    Completed a <b>20-mile run</b>, which took endurance, discipline, and mental focus.
+                  </li>
+                </ul>
+              </div>
+
+              <div class="panel">
+                <h3>🛠️ Achievements outside of school</h3>
+                <ul>
+                  <li>
+                    Built a computer, which taught me troubleshooting, patience, and attention to detail.
+                  </li>
+                  <li>
+                    Run an architecture club, which involves leadership, planning, and collaboration.
+                  </li>
+                </ul>
+              </div>
+
+              <div class="panel">
+                <h3>📌 What I bring to a job</h3>
+                <ul>
+                  <li><b>Reliability:</b> I follow through and finish what I start.</li>
+                  <li><b>Teamwork:</b> I contribute and help others do their best work.</li>
+                  <li><b>Problem-solving:</b> I stay calm, test solutions, and keep improving.</li>
+                </ul>
+              </div>
+            </div>
+
+            <div class="callout">
+              <p style="margin:0;">
+                <b>Why I’m a strong candidate:</b>
+                My sports training shows discipline and consistency, my schoolwork shows I can handle
+                difficult tasks, and my computer-building and club leadership show that I can solve
+                real problems and take responsibility. I learn quickly, communicate clearly, and I’m
+                comfortable working both independently and as part of a team.
+              </p>
+            </div>
+
+            <hr />
+
+            <div class="facts" aria-label="Contact">
+              <div class="fact">
+                <div>📧</div>
+                <div>
+                  <b>Email</b>
+                  <span><a href="mailto:cffarmaian@browning.edu" style="color:#9fc5ff; text-decoration:none;">cffarmaian@browning.edu</a></span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
       </div>
+
+      <!-- RIGHT: one square photo -->
+      <aside class="card">
+        <div class="card-head">
+          <div class="title">📸 Photo</div>
+          <div class="badge">me.jpg</div>
+        </div>
+        <div class="card-body photo-wrap">
+          <div class="photo-frame">
+            <img src="me.jpg" alt="Photo of Caspian" />
+          </div>
+        </div>
+        <div class="footer">
+          Tip: keep the file name exactly <b>me.jpg</b> in the same folder as this HTML.
+        </div>
+      </aside>
     </div>
-
-    <div class="resume-item" onclick="toggleItem(this)">
-      <strong>Experience</strong>
-      <div class="resume-details">
-        Two-week backpacking and camping expedition through Wyoming forests
-      </div>
-    </div>
-
   </div>
-</div>
-
-<!-- WHERE TO FIND ME -->
-<div class="section">
-  <button onclick="toggleSection(this)">Where You Can Find Me</button>
-  <div class="section-content">
-    <ul>
-      <li>📍 Manhattan, New York City</li>
-      <li>🌊 Near the ocean whenever possible</li>
-      <li>🌲 Outdoors hiking, backpacking, or exploring nature</li>
-      <li>📧 Email: your.email@example.com</li>
-    </ul>
-  </div>
-</div>
-
 </main>
-
-<script>
-function toggleSection(btn){
-  btn.parentElement.classList.toggle("open");
-}
-function toggleItem(item){
-  item.classList.toggle("open");
-}
-</script>
 
 </body>
 </html>
+
